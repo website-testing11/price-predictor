@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painting Price Predictor</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Painting Price Predictor</h1>
+        <form id="priceForm">
+            <label for="artist">Artist Name:</label> <br>
+            <input type="text" id="artist" name="artist" required> 
+            <br>
+            <label for="size">Painting Size (sq ft):</label> <br>
+            <input type="number" id="size" name="size" required>
+            <br>
+            <label for="medium">Medium:</label> <br>
+            <select id="medium" name="medium">
+                <option value="oil">Oil</option>
+                <option value="acrylic">Acrylic</option>
+                <option value="watercolor">Watercolor</option>
+                <option value="digital">Digital</option>
+            </select>
+            <br>
+            <label for="year">Year Created:</label> <br>
+            <input type="number" id="year" name="year" required>
+            <br>
+            <!-- New Image Input Field -->
+            <label for="image">Upload Painting Image:</label> <br>
+            <input type="file" id="image" name="image" accept="image/*" required>
+            <br>
+            <button type="submit">Predict Price</button>
+        </form>
+
+        <div id="result"></div>
+        <img id="previewImage" src="" alt="Painting Preview" style="display:none; margin-top: 20px; width: 100%;">
+    </div>
+
+    <script>
+        document.getElementById('priceForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+    
+        const artist = document.getElementById('artist').value;
+        const size = parseFloat(document.getElementById('size').value);
+        const medium = document.getElementById('medium').value;
+        const year = parseInt(document.getElementById('year').value);
+        const imageFile = document.getElementById('image').files[0];
+    
+        if (!imageFile) {
+            alert("Please upload an image of the painting.");
+            return;
+        }
+    
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const previewImage = document.getElementById('previewImage');
+            previewImage.src = e.target.result;
+            previewImage.style.display = 'block';
+        };
+        reader.readAsDataURL(imageFile);
+    
+        let basePrice = 1000;
+    
+        basePrice += size * 50;
+    
+        if (medium === 'oil') basePrice *= 1.5;
+        if (medium === 'acrylic') basePrice *= 1.2;
+    
+        const currentYear = new Date().getFullYear();
+        const age = currentYear - year;
+        if (age > 0) {
+            basePrice += age * 100;
+        }
+    
+        document.getElementById('result').textContent = `Estimated Price: ${basePrice.toFixed(2)}`;
+    });
+
+    </script>
+</body>
+</html>

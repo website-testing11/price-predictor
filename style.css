@@ -1,0 +1,52 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 50px;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: auto;
+}
+
+input[type="file"] {
+    margin-bottom: 20px;
+}
+input{
+    width: 100%;
+}
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#result{
+    margin: 2rem;
+    font-size: 1.2rem;
+}
+
+#predictionResult {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+#priceForm{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    text-align: start;
+}
